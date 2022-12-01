@@ -4,19 +4,22 @@ from pathlib import Path
 
 
 def get_calories(input):
-    data = input.split('/n/n')
-    print(data)
+    data = (input.split('\n'))
     count = 0
+    calories = []
     for x in data:
-        if x != '/n/n':
-            count 
+        if x != '':
+            count += int(x)
+        if x == '':
+            calories.append(count)
+            count = 0
+    print(max(calories))
 
-        print(count)
 
 
 
 
-
+    
 
 
 if __name__ == "__main__":
