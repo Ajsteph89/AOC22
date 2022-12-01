@@ -2,7 +2,6 @@ import sys
 from pathlib import Path
 
 
-
 def get_calories(input):
     data = (input.split('\n'))
     count = 0
@@ -13,7 +12,14 @@ def get_calories(input):
         if x == '':
             calories.append(count)
             count = 0
-    print(max(calories))
+    
+    calories.append(count)
+    
+    calories.sort(reverse=True)
+    
+    top_three = sum(calories[:3])
+    
+    print(top_three)
 
 
 if __name__ == "__main__":
