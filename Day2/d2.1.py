@@ -32,10 +32,9 @@ def roshambo(input):
         'C Y': lose + paper,
         'C Z': draw + scissors,
     }
-
+    print(data)
     for x in data: 
-        if x in data:
-            score += round[x]
+        score += round[x]
     print(score)
 
 if __name__ == "__main__":
