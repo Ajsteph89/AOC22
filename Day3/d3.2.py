@@ -68,15 +68,14 @@ def badges(input):
         }
 
 
-    for x in group:
-        for y in x:
-            for z in y:
-                if (z in x[0]) and (z in x[1]) and (z in x[2]):
-                    total += characters[z]
+    for item in group:
+        print(item)
+        for line in item:
+            for letter in line:
+                if (letter in item[0]) and (letter in item[1]) and (letter in item[2]):
+                    total += characters[letter]
                     break
-                    
-
-    print(total/3)
+        print(total/3)
 
 
 
