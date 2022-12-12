@@ -1,20 +1,46 @@
 import sys
 from pathlib import Path
-import re
 
-
-#turn 'stacks' into list
-#use 'directions to pop and append to other lists
 
 def get_stacks(input):
-    part = input.split('\n\n')
-    set_up = part[0].split('\n')
-    # print(set_up)
-    for element in set_up:
-        parts = element.split('   ')
-        print(parts)
-        
+# split initial txt doc into two parts
+    initial_stack, instructions = (i.splitlines() for i in input.strip('\n').split('\n\n'))
 
+# creates a dictionary of lists with the keys being the given number of each stack of crates
+    stacks = {int(digit):[]for digit in initial_stack[-1].replace(" ", "")}
+
+# Makes a new list of the indexes for the number of each stack of crates
+    indexes = [index for index, char in enumerate(initial_stack[-1]) if char != " "]
+
+# starting at the top of the stack, look at each item at the index we have created in indexes, if it is not a blank space add that item to the beggining of the list(value) assigned to the stac(key) in dictionary of stacks
+    for string in initial_stack[:-1]:
+        stack_num = 1
+        for index in indexes:
+            if string[index] != " ":
+                stacks[stack_num].insert(0, string[index])
+            stack_num += 1
+
+#for each line in the instructions list, get rid of the words and black spaces and make a list for each one. Then make each item in the list an integer and not string
+    for instruction in instructions:
+        instruction = instruction.replace("move", "").replace("from ", "").replace("to ", "").strip().split(" ")
+        instruction = [int(i)for i in instruction]
+        
+        # set each index for the instruction equal to a variable
+        crates = instruction[0]
+        from_stack = instruction[1]
+        to_stack = instruction[2]
+
+        #for each crate, pop it off the from stack and append it to the to stack based off the indexes from the instruction 
+        for crate in range(crates):
+            crate_removed = stacks[from_stack].pop()
+            stacks[to_stack].append(crate_removed)
+
+    # for each stack print the last value
+    answer = ""
+    for stack in stacks:
+        answer += stacks[stack][-1]
+
+    print(answer)
 
 
 if __name__ == "__main__":
