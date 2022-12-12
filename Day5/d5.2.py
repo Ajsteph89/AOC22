@@ -20,23 +20,25 @@ def get_stacks(input):
                 stacks[stack_num].insert(0, string[index])
             stack_num += 1
 
-
 #for each line in the instructions list, get rid of the words and black spaces and make a list for each one. Then make each item in the list an integer and not string
     for instruction in instructions:
         instruction = instruction.replace("move", "").replace("from ", "").replace("to ", "").strip().split(" ")
         instruction = [int(i)for i in instruction]
-
+        
         # set each index for the instruction equal to a variable
         crates = instruction[0]
         from_stack = instruction[1]
         to_stack = instruction[2]
 
-        #for each crate, pop it off the from stack and append it to the to stack based off the indexes from the instruction 
-        for crate in range(crates):
-            crate_removed = stacks[from_stack].pop()
-            stacks[to_stack].append(crate_removed)
+        crates_to_remove = stacks[from_stack][-crates:] #find how many crates to move
+        stacks[from_stack] = stacks[from_stack][:-crates] #remove crates
 
-    # for each stack add the last item in the list add it to 
+        # move crates
+        for crate in crates_to_remove:
+            stacks[to_stack].append(crate)
+
+
+    # for each stack print the last value
     answer = ""
     for stack in stacks:
         answer += stacks[stack][-1]
