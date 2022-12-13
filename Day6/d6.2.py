@@ -11,7 +11,7 @@ def connect_four(input):
         four = (input[i: i + window_size])
         if len(set(four)) == len(four):
             print(four)
-            print(i+14)
+            print(i+window_size)
             break
     
 
